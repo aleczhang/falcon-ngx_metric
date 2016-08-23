@@ -160,9 +160,9 @@ class RenderQueryCount(Render):
 
         return Render.pack(RenderQueryCount.metric, {'api': la[2], 'service': Render.get_service_name(la[1])}, v)
 
-    @staticmethod
-    def _before_render(la):
-        RenderErrRate.push(key=RenderQueryCount.metric, service=Render.get_service_name(la[1]), api=la[2], value=int(la[3]))
+    # @staticmethod
+    # def _before_render(la):
+    #     RenderErrRate.push(key=RenderQueryCount.metric, service=Render.get_service_name(la[1]), api=la[2], value=int(la[3]))
 
     @staticmethod
     def service_stat():
@@ -266,7 +266,7 @@ class RenderErrCount(Render):
             sc = 0
             for api, v in d.items():
                 sc += v
-                RenderErrRate.push(key=RenderErrCount.metric, service=service, api=api, value=v)
+                #RenderErrRate.push(key=RenderErrCount.metric, service=service, api=api, value=v)
 
             RenderErrRate.push(key=RenderErrCount.metric, service=service, api=Render.reserved_service_name, value=sc)
 
@@ -447,7 +447,8 @@ def collect():
 
         for line in content.splitlines():
             la = line.strip().split(options.ngx_out_sep)
-            append_datapoint(datapoints, Render.render(la))
+            #append_datapoint(datapoints, Render.render(la))
+            Render.render(la)
 
         for key in renders.keys():
             append_datapoint(datapoints, Render.service_stat(renders[key]))

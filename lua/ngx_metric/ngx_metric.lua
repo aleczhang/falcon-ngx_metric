@@ -21,7 +21,8 @@ function _M.new(_, dict, item_sep, uri_section_len)
     local self = {
         dict = dict,
         item_sep = item_sep,
-        cutted_uri = cut_uri(ngx.var.uri, uri_section_len),
+        --cutted_uri = cut_uri(ngx.var.uri, uri_section_len),
+        cutted_uri = "/",
     }
     return setmetatable(self, mt)
 end
